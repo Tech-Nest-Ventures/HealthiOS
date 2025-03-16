@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C00303412D8625B200C4F2C8 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00303402D8625A900C4F2C8 /* HealthKitManager.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		C00303232D86211900C4F2C8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,11 +31,25 @@
 		C00303122D86211700C4F2C8 /* HealthDashboardConnector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthDashboardConnector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C00303222D86211900C4F2C8 /* HealthDashboardConnectorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HealthDashboardConnectorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C003032C2D86211900C4F2C8 /* HealthDashboardConnectorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HealthDashboardConnectorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C00303402D8625A900C4F2C8 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C00303432D86262500C4F2C8 /* Exceptions for "HealthDashboardConnector" folder in "HealthDashboardConnector" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C00303112D86211700C4F2C8 /* HealthDashboardConnector */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C00303142D86211700C4F2C8 /* HealthDashboardConnector */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C00303432D86262500C4F2C8 /* Exceptions for "HealthDashboardConnector" folder in "HealthDashboardConnector" target */,
+			);
 			path = HealthDashboardConnector;
 			sourceTree = "<group>";
 		};
@@ -75,12 +93,14 @@
 		C00303092D86211700C4F2C8 = {
 			isa = PBXGroup;
 			children = (
+				C00303402D8625A900C4F2C8 /* HealthKitManager.swift */,
 				C00303142D86211700C4F2C8 /* HealthDashboardConnector */,
 				C00303252D86211900C4F2C8 /* HealthDashboardConnectorTests */,
 				C003032F2D86211900C4F2C8 /* HealthDashboardConnectorUITests */,
 				C00303132D86211700C4F2C8 /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		C00303132D86211700C4F2C8 /* Products */ = {
 			isa = PBXGroup;
@@ -236,6 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C00303412D8625B200C4F2C8 /* HealthKitManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,23 +414,28 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = HealthDashboardConnector/HealthDashboardConnector.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"HealthDashboardConnector/Preview Content\"";
 				DEVELOPMENT_TEAM = 3Y4F3KTSJA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HealthDashboardConnector/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "-3Y4F3KTSJA.HealthDashboardConnector";
+				PRODUCT_BUNDLE_IDENTIFIER = com.timeowilliams.HealthDashboardConnector;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -422,23 +448,28 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = HealthDashboardConnector/HealthDashboardConnector.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"HealthDashboardConnector/Preview Content\"";
 				DEVELOPMENT_TEAM = 3Y4F3KTSJA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HealthDashboardConnector/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "-3Y4F3KTSJA.HealthDashboardConnector";
+				PRODUCT_BUNDLE_IDENTIFIER = com.timeowilliams.HealthDashboardConnector;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

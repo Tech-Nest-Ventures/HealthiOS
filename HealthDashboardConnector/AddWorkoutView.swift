@@ -14,8 +14,7 @@ struct WorkoutData: Codable {
     let notes: String?
 }
 
-// First, add this struct to represent an Exercise
-struct Exercise: Codable, Identifiable {
+struct Exercise: Codable, Identifiable, Hashable {
     let id: String
     let name: String
     let category: String
@@ -24,7 +23,7 @@ struct Exercise: Codable, Identifiable {
     let defaultMET: Double?
     let appleHealthId: String?
     
-    struct ExerciseSupport: Codable {
+    struct ExerciseSupport: Codable, Hashable {
         let sets: Bool
         let duration: Bool
         let distance: Bool
@@ -54,80 +53,77 @@ struct AddWorkoutView: View {
     
     var body: some View {
         NavigationView {
-            Group {
-                if isLoadingExercises {
-                    ProgressView("Loading exercises...")
-                } else if let error = loadingError {
-                    VStack {
-                        Text("Error loading exercises: \(error)")
-                        Button("Retry") {
-                            fetchExercises()
-                        }
+            if isLoadingExercises {
+                ProgressView("Loading exercises...")
+            } else if let error = loadingError {
+                VStack {
+                    Text("Error loading exercises: \(error)")
+                    Button("Retry") {
+                        fetchExercises()
                     }
-                } else {
-                    Form {
-                        Section(header: Text("Exercise Details")) {
-                            Picker("Exercise", selection: $selectedExercise) {
-                                Text("Select Exercise").tag(Optional<Exercise>.none)
-                                ForEach(exercises) { exercise in
-                                    Text(exercise.name)
-                                        .tag(Optional(exercise))
-                                }
+                }
+            } else {
+                Form {
+                    Section(header: Text("Exercise Details")) {
+                        Picker("Exercise", selection: $selectedExercise) {
+                            Text("Select Exercise").tag(Exercise?.none)
+                            ForEach(exercises, id: \.id) { exercise in
+                                Text(exercise.name)
+                                    .tag(exercise as Exercise?)
                             }
-                            
-                            // Only show relevant fields based on exercise support
-                            if let exercise = selectedExercise {
-                                if exercise.supports.sets {
-                                    TextField("Sets", text: $sets)
-                                        .keyboardType(.numberPad)
-                                }
-                                
-                                if exercise.supports.weight {
-                                    TextField("Weight (kg)", text: $weight)
-                                        .keyboardType(.decimalPad)
-                                }
-                                
-                                if exercise.supports.distance {
-                                    TextField("Distance (km)", text: $distance)
-                                        .keyboardType(.decimalPad)
-                                }
-                                
-                                if exercise.supports.temperature {
-                                    TextField("Temperature (°C)", text: $temperature)
-                                        .keyboardType(.decimalPad)
-                                }
-                            }
-                            
-                            DatePicker("Date", selection: $date, displayedComponents: .date)
-                            DatePicker("Start Time", selection: $startTime, displayedComponents: .hourAndMinute)
-                            DatePicker("End Time", selection: $endTime, displayedComponents: .hourAndMinute)
                         }
                         
-                        Section(header: Text("Additional Information")) {
-                            TextEditor(text: $notes)
-                                .frame(height: 100)
+                        if let exercise = selectedExercise {
+                            if exercise.supports.sets {
+                                TextField("Sets", text: $sets)
+                                    .keyboardType(.numberPad)
+                            }
+                            
+                            if exercise.supports.weight {
+                                TextField("Weight (kg)", text: $weight)
+                                    .keyboardType(.decimalPad)
+                            }
+                            
+                            if exercise.supports.distance {
+                                TextField("Distance (km)", text: $distance)
+                                    .keyboardType(.decimalPad)
+                            }
+                            
+                            if exercise.supports.temperature {
+                                TextField("Temperature (°C)", text: $temperature)
+                                    .keyboardType(.decimalPad)
+                            }
                         }
+                        
+                        DatePicker("Date", selection: $date, displayedComponents: .date)
+                        DatePicker("Start Time", selection: $startTime, displayedComponents: .hourAndMinute)
+                        DatePicker("End Time", selection: $endTime, displayedComponents: .hourAndMinute)
+                    }
+                    
+                    Section(header: Text("Additional Information")) {
+                        TextEditor(text: $notes)
+                            .frame(height: 100)
                     }
                 }
             }
-            .navigationTitle("Add Workout")
-            .navigationBarItems(
-                leading: Button("Cancel") {
-                    dismiss()
-                },
-                trailing: Button("Save") {
-                    saveWorkout()
-                }
-                .disabled(selectedExercise == nil)
-            )
-            .alert("Error", isPresented: $showingError) {
-                Button("OK", role: .cancel) { }
-            } message: {
-                Text(errorMessage)
+        }
+        .navigationTitle("Add Workout")
+        .navigationBarItems(
+            leading: Button("Cancel") {
+                dismiss()
+            },
+            trailing: Button("Save") {
+                saveWorkout()
             }
-            .onAppear {
-                fetchExercises()
-            }
+            .disabled(selectedExercise == nil)
+        )
+        .alert("Error", isPresented: $showingError) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(errorMessage)
+        }
+        .onAppear {
+            fetchExercises()
         }
     }
     
@@ -187,4 +183,4 @@ struct AddWorkoutView: View {
         errorMessage = message
         showingError = true
     }
-} 
+}
